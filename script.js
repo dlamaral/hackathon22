@@ -8,14 +8,24 @@ let currentPromptIndex = 0
 let tries = 0
 const promptElement = document.getElementById('prompt')
 const userAnswer = document.getElementById('answer')
-const url = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+const url = "https://www.youtube.com/watch?v=xvFZjo5PgG0"
 
+// Button actions
 startButton.addEventListener('click', startGame)
+
 submitButton.addEventListener('click', checkAnswer)
+userAnswer.addEventListener("keypress", function(e) {
+    var key = e.which || e.keyCode || 0;
+    if (key === 13) {
+        checkAnswer()
+    }
+});
+
 nextButton.addEventListener('click', () => {
     currentPromptIndex++
     setNextPrompt()
 })
+
 finishButton.addEventListener('click', finishGame)
 
 function startGame() {
@@ -49,6 +59,7 @@ function checkAnswer() {
             nextButton.classList.remove('hide')
             submitButton.classList.add('hide')
         } else {
+            submitButton.classList.add('hide')
             finishButton.classList.remove('hide')
         }
     } else {
