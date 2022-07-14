@@ -9,6 +9,10 @@ let tries = 0
 const promptElement = document.getElementById('prompt')
 const userAnswer = document.getElementById('answer')
 const url = "https://www.youtube.com/watch?v=xvFZjo5PgG0"
+const startingMinutes = 1
+let time = startingMinutes * 60
+const countdownEl = document.getElementById('countdown')
+const feedbackEl = document.getElementById('feedback-container')
 
 // Button actions
 startButton.addEventListener('click', startGame)
@@ -28,18 +32,20 @@ nextButton.addEventListener('click', () => {
 
 finishButton.addEventListener('click', finishGame)
 
+// Functions
 function startGame() {
-    console.log("Game Started")
-    startButton.classList.add('hide')
+    setInterval(updateCountdown, 1000)
+    startButton.classList.add('hidden')
+    // countdownEl.classList.remove('hide')
     promptContainerElement.classList.remove('hide')
     userAnswerContainerElement.classList.remove('hide')
-    submitButton.classList.remove('hide')
+    submitButton.classList.remove('hidden')
     setNextPrompt()
 }
 
 function setNextPrompt(userInput) {
-    nextButton.classList.add('hide')
-    submitButton.classList.remove('hide')
+    nextButton.classList.add('hidden')
+    submitButton.classList.remove('hidden')
     resetState()
     showPrompt(prompts[currentPromptIndex])
 }
@@ -51,16 +57,21 @@ function showPrompt(prompt) {
 function resetState() {
     userAnswer.value = ""
     tries = 0
+    feedbackEl.classList.add('hide')
 }
 
 function checkAnswer() {
     if (userAnswer.value.toLowerCase() ===  prompts[currentPromptIndex].answer) {
         if (prompts.length > currentPromptIndex + 1) {
-            nextButton.classList.remove('hide')
-            submitButton.classList.add('hide')
+            nextButton.classList.remove('hidden')
+            submitButton.classList.add('hidden')
+            feedbackEl.classList.remove('hide')
+            feedbackEl.innerText = `Great job, the answer was ${userAnswer.value}.`
         } else {
-            submitButton.classList.add('hide')
-            finishButton.classList.remove('hide')
+            submitButton.classList.add('hidden')
+            finishButton.classList.remove('hidden')
+            feedbackEl.classList.remove('hide')
+            feedbackEl.innerText = `The answer was ${userAnswer.value}, indeed. You are amazing!`
         }
     } else {
         tries++
@@ -78,6 +89,16 @@ function checkAnswer() {
 function finishGame() {
     alert("You finished the hackathon! You must be a wizard!🧙‍♂️")
     window.open(url, '_blank').focus();
+}
+
+function updateCountdown() {
+    const minutes = Math.floor(time / 60)
+    let seconds = time % 60
+
+    seconds = seconds < 10 ? '0' + seconds : seconds
+
+    countdownEl.innerHTML = `${minutes}:${seconds}`
+    time--
 }
 
 const prompts = [

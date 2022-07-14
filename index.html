@@ -6,21 +6,23 @@
     <link href="styles.css" rel="stylesheet">
     <script defer src="script.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Eng Colo Hackathon</title>
 </head>
 <body>
     <div class="container">
+        <div id="countdown" class="countdown-container hide">0</div>
         <div id="prompt-container" class="prompt-container hide">
             <div id="prompt">Prompt</div>
         </div>
         <div id="answer-container" class="answer-container hide">
-            <input id="answer">
+            <input id="answer" class="answer">
         </div>
+        <div id="feedback-container" class="feedback-container hide">Great Job!</div>
         <div class="controls">
             <button id="start-btn" class="start-btn btn">Start</button>
-            <button id="submit-btn" class="submit-btn btn hide">Submit</button>
-            <button id="next-btn" class="next-btn btn hide">Next</button>
-            <button id="finish-btn" class="finish-btn btn hide">Finish</button>
+            <button id="submit-btn" class="submit-btn btn hidden">Submit</button>
+            <button id="next-btn" class="next-btn btn hidden">Next</button>
+            <button id="finish-btn" class="finish-btn btn hidden">Finish</button>
         </div>
     </div>
 </body>
